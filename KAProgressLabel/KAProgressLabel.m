@@ -335,8 +335,8 @@
 
 - (CGRect) rectForDegree:(float) degree andRect:(CGRect) rect 
 {
-    float x = [self xPosRoundForAngle:degree andRect:rect] - _roundedCornersWidth/2;
-    float y = [self yPosRoundForAngle:degree andRect:rect] - _roundedCornersWidth/2;
+    float x = [self xPosRoundForAngle:degree andRect:rect] - _roundedCornersWidth/2.0;
+    float y = [self yPosRoundForAngle:degree andRect:rect] - _roundedCornersWidth/2.0;
     return CGRectMake(x, y, _roundedCornersWidth, _roundedCornersWidth);
 }
 
@@ -344,27 +344,27 @@
 {
     return cosf(KADegreesToRadians(degree))* [self radius]
     - cosf(KADegreesToRadians(degree)) * [self borderDelta]
-    + rect.size.width/2;
+    + rect.size.width/2.0;
 }
 
 - (float) yPosRoundForAngle:(float) degree andRect:(CGRect) rect
 {
     return sinf(KADegreesToRadians(degree))* [self radius]
     - sinf(KADegreesToRadians(degree)) * [self borderDelta]
-    + rect.size.height/2;
+    + rect.size.height/2.0;
 }
 
 - (float) borderDelta
 {
-    return MAX(MAX(_trackWidth,_progressWidth),_roundedCornersWidth)/2;
+    return MAX(MAX(_trackWidth,_progressWidth),_roundedCornersWidth)/2.0;
 }
 
 -(CGRect)rectForCircle:(CGRect)rect
 {
     CGFloat minDim = MIN(self.bounds.size.width, self.bounds.size.height);
-    CGFloat circleRadius = (minDim / 2) - [self borderDelta];
-    CGPoint circleCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-    return CGRectMake(circleCenter.x - circleRadius, circleCenter.y - circleRadius, 2 * circleRadius, 2 * circleRadius);
+    CGFloat circleRadius = (minDim / 2.0) - [self borderDelta];
+    CGPoint circleCenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    return CGRectMake(circleCenter.x - circleRadius, circleCenter.y - circleRadius, 2.0 * circleRadius, 2.0 * circleRadius);
 }
 
 @end
